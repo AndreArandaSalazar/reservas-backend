@@ -1,5 +1,6 @@
-package com.app.reservas.modelo;
+package com.app.reservas.model;
 
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -14,6 +15,7 @@ public class Categoria {
   @GeneratedValue(strategy = GenerationType.IDENTITY)
   private Long id;
 
+  @Column(nullable = false, length = 100, unique = true)
   private String nombre;
 
   public Categoria() {

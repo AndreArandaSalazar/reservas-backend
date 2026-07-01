@@ -1,56 +1,39 @@
-package com.app.reservas.modelo;
+package com.app.reservas.model;
 
-import com.app.reservas.model.enums.EstadoUsuario;
-import com.app.reservas.model.enums.Rol;
-import jakarta.persistence.*;
 import java.time.LocalDate;
-import java.time.LocalDateTime;
+
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import jakarta.persistence.Table;
 
 @Entity
-@Table(name = "usuarios")
+@Table(name = "Usuarios")
 public class Usuario {
 
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
   private Long id;
 
-  @Column(nullable = false, length = 100)
+  @Column(nullable = false)
   private String nombre;
-
-  @Column(nullable = false, length = 100)
   private String apellido;
 
-  @Column(name = "fecha_nacimiento", nullable = false)
+  @Column(name = "fecha_nacimiento")
   private LocalDate fechaNacimiento;
 
-  @Column(nullable = false, length = 150, unique = true)
   private String correo;
-
-  // Puede ser null al inicio mientras el estado sea PENDIENTE
-  @Column(length = 255)
   private String password;
-
-  @Enumerated(EnumType.STRING)
-  @Column(nullable = false, length = 30)
-  private Rol rol;
-
-  @Enumerated(EnumType.STRING)
-  @Column(nullable = false, length = 30)
-  private EstadoUsuario estado;
-
-  @Column(name = "fecha_creacion", nullable = false, updatable = false)
-  private LocalDateTime fechaCreacion;
-
-  @PrePersist
-  protected void onCreate() {
-    this.fechaCreacion = LocalDateTime.now();
-  }
+  private String rol;
+  private String estado;
 
   public Usuario() {
   }
 
-  public Usuario(Long id, String nombre, String apellido, LocalDate fechaNacimiento,
-      String correo, String password, Rol rol, EstadoUsuario estado) {
+  public Usuario(Long id, String nombre, String apellido, LocalDate fechaNacimiento, String correo, String password,
+      String rol, String estado) {
     this.id = id;
     this.nombre = nombre;
     this.apellido = apellido;
@@ -109,23 +92,20 @@ public class Usuario {
     this.password = password;
   }
 
-  public Rol getRol() {
+  public String getRol() {
     return rol;
   }
 
-  public void setRol(Rol rol) {
+  public void setRol(String rol) {
     this.rol = rol;
   }
 
-  public EstadoUsuario getEstado() {
+  public String getEstado() {
     return estado;
   }
 
-  public void setEstado(EstadoUsuario estado) {
+  public void setEstado(String estado) {
     this.estado = estado;
   }
 
-  public LocalDateTime getFechaCreacion() {
-    return fechaCreacion;
-  }
 }
